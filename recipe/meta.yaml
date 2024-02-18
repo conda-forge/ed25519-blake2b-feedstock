@@ -12,10 +12,11 @@ source:
     - 1_rename-edsig-edsig_blake2b.patch
     - 2_update-setup.py.patch
     - 3_update-README.md.patch
+    - 4_fix_failUnlessEqual.md.patch
 
 build:
   script: {{ PYTHON }} -m pip install . -vv
-  number: 2
+  number: 3
 
 requirements:
   build:
