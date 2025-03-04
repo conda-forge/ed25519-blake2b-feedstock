@@ -16,12 +16,14 @@ source:
 
 build:
   script: {{ PYTHON }} -m pip install . -vv
-  number: 5
+  number: 6
 
 requirements:
   build:
     - {{ compiler('c') }}
     - {{ stdlib("c") }}
+    - cross-python_{{ target_platform }}  # [build_platform != target_platform]
+    - python  # [build_platform != target_platform]
   host:
     - python
     - pip
@@ -42,8 +44,6 @@ test:
     - pip check
     - edsig_blake2b
     - python test_ed25519_kat.py
-  downstreams:
-    - bip-utils
 
 about:
   home: https://github.com/Matoking/python-ed25519-blake2b
