@@ -1,5 +1,6 @@
 {% set name = "ed25519-blake2b" %}
 {% set version = "1.4.1" %}
+{% set python_min = "3.9" %}
 
 package:
   name: {{ name|lower }}
@@ -22,19 +23,21 @@ requirements:
   build:
     - {{ compiler('c') }}
     - {{ stdlib("c") }}
+    - cross-python_{{ target_platform }}  # [build_platform != target_platform]
+    - python  # [build_platform != target_platform]
   host:
-    - python
+    - python =={{ python_min }}.*
     - pip
     - setuptools
   run:
-    - python
+    - python >={{ python_min }}.*
 
 test:
   imports:
     - ed25519_blake2b
   requires:
     - pip
-    - python
+    - python >={{ python_min }}.*
   source_files:
     - test_ed25519_kat.py
     - kat-ed25519-blake2b.txt
